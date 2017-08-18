@@ -10,7 +10,7 @@
 */
 $path = $_SERVER['DOCUMENT_ROOT'];
 include_once $path . '/wp-includes/wp-db.php'; // include wpdb for db connection
-include_once("Setup.php");  // include setup functions
+include_once("dbHelper.php");  // include setup functions
 include_once("Helper.php");  // include Helper functions
 
 /* =======================================================================
@@ -20,19 +20,19 @@ include_once("Helper.php");  // include Helper functions
 
 function pluginIsActive() {
     // Activation code here
-    $setup = new Setup;
+    $setup = new dbHelper;
     $setup->cteateDummyTable();
 }
 
 function pluginIsInactive() {
     // Deactivation code here
-    $setup = new Setup;
+    $setup = new dbHelper;
     $setup->dropDummyTable();
 }
 
 function pluginUninstalled() {
     // Uninstall code here
-    $setup = new Setup;
+    $setup = new dbHelper;
     $setup->dropDummyTable();
 }
 
@@ -140,7 +140,32 @@ add_filter( 'manage_users_custom_column', 'addDummymetaToUsersMeta', 10, 3 );
 
 
 
+/* =======================================================================
+ *      add plugin menu and submenu to wp-admin
+ * =======================================================================
+*/
+// create menu to read and add dummy data into $wpdb->dummyTable 
+// that one we've created on plugin install/active from csv file
+add_action( 'admin_menu', 'pluginMenu' );
 
+function pluginMenu() {
+    add_menu_page( 'pluginMenu', 'pluginMenu', 'manage_options', 'myplugin/myplugin-admin-page.php', 'dummyDataPanel', 'dashicons-tickets', 6  );
+    add_submenu_page( 'myplugin/myplugin-admin-page.php', 'pluginSubmenu', 'pluginSubmenu', 'manage_options', 'myplugin/myplugin-admin-sub-page.php', 'addDummyData' ); 
+}
+
+function dummyDataPanel(){
+    $helper = new Helper;
+    echo $helper->showAllDummyData();
+}
+define('SAVEQUERIES', true);
+define( 'MY_PLUGIN_ROOT' , dirname(__FILE__) );
+function addDummyData(){
+    // import_page();
+    $helper = new Helper;
+    // echo $helper->addCompaniesForm();
+    // $helper->fetchInsert();
+
+}
 
 
 ?>

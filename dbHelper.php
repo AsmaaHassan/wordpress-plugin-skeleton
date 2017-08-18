@@ -1,5 +1,5 @@
 <?php 
-	class Setup {
+	class dbHelper {
 		/*
          * This class contains functions to create
          * and drop tables via wpdb
@@ -35,6 +35,12 @@
         	global $wpdb;
             $sql = "DROP TABLE IF EXISTS ".$this->dummyTable.";";
             $wpdb->query($sql);
+        }
+
+        public static function getColumnsNames( $table) {
+            global $wpdb;
+            $table = $wpdb->prefix . $table;
+            return $wpdb->get_col("DESC {$table}", 0);
         }
 	}
 ?>
