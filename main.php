@@ -38,5 +38,16 @@ function pluginUninstalled() {
 register_activation_hook( __FILE__, 'pluginIsActive' );
 register_deactivation_hook( __FILE__, 'pluginIsInactive' );
 register_uninstall_hook( __FILE__, 'pluginUninstalled' );
+/* =======================================================================
+ *      register plugin shortcode
+ * =======================================================================
+*/
+function pluginShortCode(){
+    echo "Hello world!";
+    die();// wordpress may print out a spurious zero
+    // without this can be particularly bad if using json
 
+}
+// display the function on shortcode call
+add_shortcode( 'wordpress-plugin-skeleton', 'pluginShortCode' );
 ?>
