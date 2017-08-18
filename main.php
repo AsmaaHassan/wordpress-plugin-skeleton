@@ -9,7 +9,7 @@
  * License: GPL2
 */
 $path = $_SERVER['DOCUMENT_ROOT'];
-include_once $path . '/wp-includes/wp-db.php'; // for db connection
+include_once $path . '/wp-includes/wp-db.php'; // include wpdb for db connection
 include_once("Setup.php");  // include setup functions
 
 /* =======================================================================
@@ -38,10 +38,14 @@ function pluginUninstalled() {
 register_activation_hook( __FILE__, 'pluginIsActive' );
 register_deactivation_hook( __FILE__, 'pluginIsInactive' );
 register_uninstall_hook( __FILE__, 'pluginUninstalled' );
+
+
+
 /* =======================================================================
  *      register plugin shortcode
  * =======================================================================
 */
+
 function pluginShortCode(){
     echo "Hello world!";
     die();// wordpress may print out a spurious zero
@@ -50,4 +54,27 @@ function pluginShortCode(){
 }
 // display the function on shortcode call
 add_shortcode( 'wordpress-plugin-skeleton', 'pluginShortCode' );
+
+
+
+/* =======================================================================
+ *      register plugin endpoint
+ * =======================================================================
+*/
+
+function dummyEndpoint(WP_REST_Request $request ) {
+  $data = $request->get_json_params();
+  return $data;
+}
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'ws', '/endpoint', array(
+    'methods' => 'GET',
+    'callback' => 'dummyEndpoint',
+  ) );
+} );
+
+
+
+
 ?>
