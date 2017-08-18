@@ -61,7 +61,7 @@ add_shortcode( 'wordpress-plugin-skeleton', 'pluginShortCode' );
  *      register plugin endpoint
  * =======================================================================
 */
-
+// more info: https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/
 function dummyEndpoint(WP_REST_Request $request ) {
   $data = $request->get_json_params();
   return $data;
