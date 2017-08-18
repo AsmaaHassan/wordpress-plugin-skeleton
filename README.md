@@ -10,4 +10,5 @@ points covered: <br/>
 7- create wordpress endpoint.<br/>
 8- upload file.<br/>
 9- read from csv file.<br/>
-10- add custom column to users_meta and add it to users profile and all users panel.
+10- add custom column to users_meta and add it to users profile and all users panel.<br/>
+11- add field to the add user form - update user - update profile in wordpress.

@@ -11,6 +11,7 @@
 $path = $_SERVER['DOCUMENT_ROOT'];
 include_once $path . '/wp-includes/wp-db.php'; // include wpdb for db connection
 include_once("Setup.php");  // include setup functions
+include_once("Helper.php");  // include Helper functions
 
 /* =======================================================================
  *      register plugin activation - deactivation - uninstall
@@ -73,6 +74,71 @@ add_action( 'rest_api_init', function () {
     'callback' => 'dummyEndpoint',
   ) );
 } );
+
+
+
+
+/* =======================================================================
+ *      add dummy_meta field to uses form
+ * =======================================================================
+*/
+//add field to the add user form - update user - update profile in wordpress
+add_action('user_new_form','addNewFieldToUsersForm');
+add_action('show_user_profile', 'addNewFieldToUsersForm');
+add_action('edit_user_profile', 'addNewFieldToUsersForm');
+
+function addNewFieldToUsersForm($user) {
+    $helper = new Helper;
+    echo $helper->addDummymetaField($user);
+}
+
+
+/* =======================================================================
+ *      add dummy_meta column to $wpdb->usermeta;
+ * =======================================================================
+*/
+//Save new field for user in users_meta table
+add_action('user_register', 'saveDummymeta');
+add_action('edit_user_profile_update', 'saveDummymeta');
+
+function saveDummymeta($user_id, $dummy_meta) {
+
+    if (!current_user_can('edit_user', $user_id)) {
+        return false;
+    }
+
+    if (isset($_POST['dummy_meta'])) {
+        update_user_meta($user_id, 'dummy_meta', $dummy_meta);
+    }
+}
+
+//add field to the update user form in wordpress admin panel
+function showDummymetaInUpdateUser( $contactmethods ) {
+    $contactmethods['dummy_meta'] = 'dummy meta';
+    return $contactmethods;
+}
+add_filter( 'user_contactmethods', 'showDummymetaInUpdateUser', 10, 1 );
+
+//add field to the all users in wordpress admin panel
+function showDummymetaInAllUsersPanel( $column ) {
+    $column['dummy_meta'] = 'dummy meta';
+    return $column;
+}
+add_filter( 'manage_users_columns', 'showDummymetaInAllUsersPanel' );
+
+function addDummymetaToUsersMeta( $val, $column_name, $user_id ) {
+    switch ($column_name) {
+        case 'dummy_meta' :
+            return get_the_author_meta( 'dummy_meta', $user_id );
+            break;
+        default:
+    }
+    return $val;
+}
+add_filter( 'manage_users_custom_column', 'addDummymetaToUsersMeta', 10, 3 );
+
+
+
 
 
 
