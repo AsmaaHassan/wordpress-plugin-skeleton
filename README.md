@@ -1,4 +1,5 @@
 # wordpres-plugin-skeleton
+wordpress plugin skeleton with upload file and read from csv file example.<br/>
 points covered: <br/>
 1- include custom css and js files to your plugin.<br/>
 2- include libs based on another libs.<br/>
