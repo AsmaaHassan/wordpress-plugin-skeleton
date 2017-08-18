@@ -1,5 +1,5 @@
 # wordpres-plugin-skeleton
-points covered:
+points covered:\n
 1- include custom css and js files to your plugin.
 2- include libs based on another libs.
 3- plugin install, active and inactive.
