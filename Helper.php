@@ -10,6 +10,8 @@
 		private $columns = null;
 		private $dbHelper = null;
 		private $file = null;
+		private $startDate = null;
+		private $endDate = null;
 
 		public function addDummymetaField(){
 			$this->html = file_get_contents('partialViews/dummymetaInputFieldUsersForm.html', true);
@@ -65,7 +67,7 @@
 				if (!is_dir($upload_dir)) mkdir($upload_dir, $permissions);
 				$umask = umask($oldmask);
 				$chmod = chmod($upload_dir, $permissions);
-				
+
 				// read records from csv file with this ofrmat card_number, company_name
 				$row = 0; // count rows
 				$this->html = '<h1>Records in file</h1><br/>';
@@ -85,6 +87,18 @@
 				}
 				return $this->html;
 			}
+		}
+
+		public function sayHelloForm(){
+			$this->html = file_get_contents('partialViews/sayHelloForm.html', true);
+			return $this->html;
+		}
+
+		public function sayHelloPost(){
+			$this->startDate = $_POST['startDate'];
+		    $this->endDate = $_POST['endDate'];
+			$this->html = "Hello, world! <br/> from: ".$this->startDate. " to: ". $this->endDate;
+			return $this->html;
 		}
 	}
 ?>

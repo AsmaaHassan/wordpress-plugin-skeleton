@@ -9,6 +9,8 @@ points covered: <br/>
 6- create plugin menu and submenu in wp-admin.<br/>
 7- create wordpress endpoint.<br/>
 8- add custom column to users_meta and add it to users profile and all users panel.<br/>
-9- add field to the add user form - update user - update profile in wordpress.
+9- add field to the add user form - update user - update profile in wordpress.</br>
 10- upload file.<br/>
 11- read from csv file.<br/>
+12- create custom ajax for our plugin.</br>
+13- using date picker in our pluin.

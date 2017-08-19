@@ -1,0 +1,22 @@
+<!-- utilizationform -->
+<div class="alert alert-info alert-dismissible" role="alert">
+  <strong>Warning!</strong> click on the button to start
+</div>
+<form id="sayHelloForm" class="form-inline">
+    <div class="form-group">
+        <div class="input-daterange input-group">
+            <input type="text" class="input-sm form-control" data-provide="datepicker"
+                   name="startDate" id="startDate" data-date-format="yyyy-mm-dd"/>
+            <span class="input-group-addon">to</span>
+            <input type="text" class="input-sm form-control" data-provide="datepicker"
+                   name="endDate" id="endDate" data-date-format="yyyy-mm-dd"/>
+        </div>
+    </div>
+    <button type="submit" id="sayHelloFormSubmit" class="btn">Submit</button>
+</form>
+<hr>
+<div id='sayHello'></div>
+<button class="btn" onclick="printDiv('sayHello');" >Print</button>
+
+
+<!-- END utilizationform -->

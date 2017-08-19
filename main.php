@@ -8,6 +8,27 @@
  * Author URI: https://github.com/iSuperMostafa
  * License: GPL2
 */
+
+/*
+ * # wordpres-plugin-skeleton
+ * wordpress plugin skeleton with upload file and read from csv file example.
+ * points covered:
+ * 1- include custom css and js files to your plugin.
+ * 2- include libs based on another libs.
+ * 3- plugin install, active and inactive.
+ * 4- create plugin shortcode.
+ * 5- using wpdb "to make db CRUD".
+ * 6- create plugin menu and submenu in wp-admin.
+ * 7- create wordpress endpoint.
+ * 8- add custom column to users_meta and add it to users profile and all users panel.
+ * 9- add field to the add user form - update user - update profile in wordpress.
+ * 10- upload file.
+ * 11- read from csv file.
+ * 12- create custom ajax for our plugin.
+ * 13- using date picker in our pluin. 
+*/
+
+
 $path = $_SERVER['DOCUMENT_ROOT'];
 include_once $path . '/wp-includes/wp-db.php'; // include wpdb for db connection
 include_once("dbHelper.php");  // include setup functions
@@ -48,15 +69,18 @@ register_uninstall_hook( __FILE__, 'pluginUninstalled' );
 */
 
 function pluginShortCode(){
-    echo "Hello world!";
-    die();// wordpress may print out a spurious zero
-    // without this can be particularly bad if using json
-
+    $helper = new Helper;
+    echo $helper->sayHelloForm();
 }
 // display the function on shortcode call
 add_shortcode( 'wordpress-plugin-skeleton', 'pluginShortCode' );
 
-
+function sayHello(){
+	$helper = new Helper;
+    echo $helper->sayHelloPost();
+    die();// wordpress may print out a spurious zero
+    // without this can be particularly bad if using json
+}
 
 /* =======================================================================
  *      register plugin endpoint
@@ -184,6 +208,9 @@ function registerStylesAndScripts() {
     // jquery-ui-1.12.1
     wp_register_script( 'jQueryUiJs', plugins_url('/assets/lib/jquery-ui-1.12.1/jquery-ui.min.js', __FILE__), array('jquery'));
     wp_register_style( 'jQueryUiCss', plugins_url('/assets/lib/jquery-ui-1.12.1/jquery-ui.min.css', __FILE__));
+    // bootstrap-datepicker-1.6.4
+    wp_register_script( 'datePickerJs', plugins_url('/assets/lib/bootstrap-datepicker-1.6.4/bootstrap-datepicker.min.js', __FILE__), array('jquery'));
+    wp_register_style( 'datePickerCss', plugins_url('/assets/lib/bootstrap-datepicker-1.6.4/bootstrap-datepicker3.min.css', __FILE__));
 }
 
 // now we can use the scripts registered above
@@ -197,14 +224,17 @@ function enqueueStylesAndScripts(){
    // jquery ui
    wp_enqueue_style('jQueryUiCss');
    wp_enqueue_script('jQueryUiJs');
+   //date picker
+   wp_enqueue_style('datePickerCss');
+   wp_enqueue_script('datePickerJs');
    // defining the ajax script in our plugin
-   // wp_localize_script( 'utilisationReportJs', 'utilizationFormScript', array(
-   //      'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-   //      //'query_vars' => json_encode( $wp_query->query )
-   //      ) );
+   wp_localize_script( 'pluginJs', 'customAjaxScript', array(
+        'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+        //'query_vars' => json_encode( $wp_query->query )
+        ) );
 }
 // defining the ajax function 
-// add_action( 'wp_ajax_utilisationReportDisplay', 'sms_utilisationReportDisplay' );
-// add_action( 'wp_ajax_nopriv_utilisationReportDisplay', 'sms_utilisationReportDisplay' );
+add_action( 'wp_ajax_sayHello', 'sayHello' );
+add_action( 'wp_ajax_nopriv_sayHello', 'sayHello' );
 
 ?>
