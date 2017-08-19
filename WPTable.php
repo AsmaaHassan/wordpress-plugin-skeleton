@@ -31,10 +31,11 @@
 		}
 
 		public function wordpressBodyTable($row){
-			$this->html = null;
+			$this->html = '<tr>';
 			foreach ($row as $data) {
-				$this->html	.=	'<tr><td>'.$data.'</td></tr>';
+				$this->html	.=	'<td>'.$data.'</td>';
 			}
+			$this->html .= '</tr>';
 			return $this->html;
 		}
 	}
