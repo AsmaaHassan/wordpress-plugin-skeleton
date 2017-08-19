@@ -168,4 +168,43 @@ function addDummyData(){
 }
 
 
+/*  =======================================
+ *      register new styles and scripts
+ *  =======================================
+ */
+// register scripts and styles on initialization
+add_action('init', 'registerStylesAndScripts');
+function registerStylesAndScripts() {
+    // custome styles
+    wp_register_script( 'pluginJs', plugins_url('/assets/scripts.js', __FILE__), array('jquery'));
+    wp_register_style( 'pluginCss', plugins_url('/assets/style.css', __FILE__));
+    // libs
+    // jQuery
+    wp_register_script( 'jquery', plugins_url('/assets/lib/jQuery.js', __FILE__), array('jquery'), '3.2.1');
+    // jquery-ui-1.12.1
+    wp_register_script( 'jQueryUiJs', plugins_url('/assets/lib/jquery-ui-1.12.1/jquery-ui.min.js', __FILE__), array('jquery'));
+    wp_register_style( 'jQueryUiCss', plugins_url('/assets/lib/jquery-ui-1.12.1/jquery-ui.min.css', __FILE__));
+}
+
+// now we can use the scripts registered above
+add_action('wp_enqueue_scripts', 'enqueueStylesAndScripts');
+function enqueueStylesAndScripts(){
+	// custom plugin css - js
+   wp_enqueue_script('pluginJs');
+   wp_enqueue_style('pluginCss');
+   // jquery
+   wp_enqueue_script('jquery');
+   // jquery ui
+   wp_enqueue_style('jQueryUiCss');
+   wp_enqueue_script('jQueryUiJs');
+   // defining the ajax script in our plugin
+   // wp_localize_script( 'utilisationReportJs', 'utilizationFormScript', array(
+   //      'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+   //      //'query_vars' => json_encode( $wp_query->query )
+   //      ) );
+}
+// defining the ajax function 
+// add_action( 'wp_ajax_utilisationReportDisplay', 'sms_utilisationReportDisplay' );
+// add_action( 'wp_ajax_nopriv_utilisationReportDisplay', 'sms_utilisationReportDisplay' );
+
 ?>
