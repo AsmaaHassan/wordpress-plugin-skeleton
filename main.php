@@ -157,14 +157,14 @@ function dummyDataPanel(){
     $helper = new Helper;
     echo $helper->showAllDummyData();
 }
+
+// upload file
 define('SAVEQUERIES', true);
 define( 'MY_PLUGIN_ROOT' , dirname(__FILE__) );
 function addDummyData(){
-    // import_page();
     $helper = new Helper;
-    // echo $helper->addCompaniesForm();
-    // $helper->fetchInsert();
-
+    echo $helper->uploadFileForm(); // display upload file form
+    echo $helper->fetchReadFile(); // read file content
 }
 
 

@@ -5,10 +5,10 @@ points covered: <br/>
 2- include libs based on another libs.<br/>
 3- plugin install, active and inactive.<br/>
 4- create plugin shortcode.<br/>
-5- create plugin menu and submenu in wp-admin.<br/>
-6- using wpdb "to make db CRUD".<br/>
+5- using wpdb "to make db CRUD".<br/>
+6- create plugin menu and submenu in wp-admin.<br/>
 7- create wordpress endpoint.<br/>
-8- upload file.<br/>
-9- read from csv file.<br/>
-10- add custom column to users_meta and add it to users profile and all users panel.<br/>
-11- add field to the add user form - update user - update profile in wordpress.
+8- add custom column to users_meta and add it to users profile and all users panel.<br/>
+9- add field to the add user form - update user - update profile in wordpress.
+10- upload file.<br/>
+11- read from csv file.<br/>
